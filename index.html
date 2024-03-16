@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body
+    style="
+      background: url('./Images/HomePage.jpg') no-repeat;
+      min-height: 100vh;
+    "
+  >
+    <!-- Login Page -->
+    <div
+      id="loginPage"
+      style="min-height: 100vh; display: flex"
+      class="align-items-center justify-content-center"
+    >
+      <div
+        class="container-fluid text-center d-flex justify-content-center align-items-center flex-column"
+      >
+        <h2 class="mb-5">MONEY TRACKER</h2>
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Name"
+            style="width: 300px"
+          />
+          <label for="name">Input your Name</label>
+        </div>
+        <button
+          type="button"
+          id="submitButton"
+          class="btn btn-danger rounded-pill px-5 mt-3"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+
+    <nav
+      class="navbar bg-dark navbar-expand-lg"
+      style="display: none"
+      data-bs-theme="dark"
+    >
+      <div class="container">
+        <a class="navbar-brand">
+          <img src="images/MoneyBag.png" class="img-fluid" width="60px" />
+          Hello, <span class="username fw-bold"></span>!
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="ms-auto navbar-nav mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" id="main-link" href="#main">Main</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="income-link" href="#income">Income</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="outcome-link" href="#outcome">Outcome</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="about-link" href="#about">About Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Main Page -->
+    <div id="main" style="display: none">
+      <div id="box">
+        <div
+          class="justify-content-between d-flex gap-3 flex-column flex-md-row p-5"
+        >
+          <div
+            class="w-100 w-lg-50 bg-body-secondary p-5 rounded-3"
+            style="height: 200px"
+          >
+            <h4 class="fs-6 fw-bold">Balance</h4>
+            <h2 id="balance" class="fw-bold"></h2>
+          </div>
+          <div
+            id="test"
+            class="w-100 w-lg-50 text-center bg-body-secondary rounded-3"
+            style="height: 500px"
+          > 
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Income Page -->
+    <div id="income" style="display: none">
+      <div class="container">
+        <h3 id="judulIncome" class="text-center mt-4">
+          <span class="username"></span>'s Income
+        </h3>
+        <form action="" name="income" onsubmit="event.preventDefault()">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"
+              ><strong>Transcation name</strong></label
+            >
+            <input
+              type="text"
+              class="form-control border border-4 border-dark"
+              id="transName"
+              name="transName"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"
+              ><strong>Transcation nominal</strong></label
+            >
+            <input
+              type="number"
+              class="form-control border border-4 border-dark"
+              id="transNom"
+              placeholder="100.000/100000?"
+              name="transNom"
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="transType" class="form-label"
+              ><strong>Transcation type</strong></label
+            >
+            <select
+              onfocus="option()"
+              id="transType"
+              class="form-select border border-4 border-dark w-full"
+              name="transType"
+            ></select>
+          </div>
+          <div class="col-12 rounded-mg mt-5">
+            <button
+              type="submit"
+              class="btn btn-danger rounded-pill px-5"
+              id="submit-income"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
