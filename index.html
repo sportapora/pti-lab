@@ -106,8 +106,7 @@
             id="test"
             class="w-100 w-lg-50 text-center bg-body-secondary rounded-3"
             style="height: 500px"
-          > 
-          </div>
+          ></div>
         </div>
       </div>
     </div>
@@ -147,7 +146,6 @@
               ><strong>Transcation type</strong></label
             >
             <select
-              onfocus="option()"
               id="transType"
               class="form-select border border-4 border-dark w-full"
               name="transType"
@@ -158,6 +156,59 @@
               type="submit"
               class="btn btn-danger rounded-pill px-5"
               id="submit-income"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Outcome Page -->
+    <div id="outcome" style="display: none">
+      <div class="container">
+        <h3 id="judulIncome" class="text-center mt-4">
+          <span class="username"></span>'s Outcome
+        </h3>
+        <form action="" name="outcome" id="outcome-form" onsubmit="event.preventDefault()">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"
+              ><strong>Transcation name</strong></label
+            >
+            <input
+              type="text"
+              class="form-control border border-4 border-dark"
+              id="transName"
+              name="transName"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"
+              ><strong>Transcation nominal</strong></label
+            >
+            <input
+              type="number"
+              class="form-control border border-4 border-dark"
+              id="transNom"
+              placeholder="100.000/100000?"
+              name="transNom"
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="transType" class="form-label"
+              ><strong>Transcation type</strong></label
+            >
+            <select
+              id="transType"
+              class="form-select border border-4 border-dark w-full"
+              name="transType"
+            ></select>
+          </div>
+          <div class="col-12 rounded-mg mt-5">
+            <button
+              type="submit"
+              class="btn btn-danger rounded-pill px-5"
+              id="submit-outcome"
             >
               Submit
             </button>

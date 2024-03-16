@@ -49,7 +49,7 @@ $(document).ready(() => {
         $("#income-link").removeClass("active");
         $("#outcome-link").removeClass("active");
         $("#about-link").removeClass("active");
-        displayTransactions(transactions);
+        displayTransactions(transactions, balance);
       });
 
       $("#balance").text(IDR.format(balance));
@@ -85,11 +85,43 @@ $(document).ready(() => {
         });
       });
 
+      // Display outcome page
+      $("#outcome-link").on("click", () => {
+        $("#main").css("display", "none");
+        $("#outcome").css("display", "block");
+        $("#about").css("display", "none");
+        $("#income").css("display", "none");
+        $("#income-link").removeClass("active");
+        $("#main-link").removeClass("active");
+        $("#outcome-link").addClass("active");
+        $("#about-link").removeClass("active");
+
+        $("#outcome-form #transType").on("focus", () => {
+          let select = $("#outcome-form #transType");
+          select.text("");
+
+          let op1 = document.createElement("option");
+          op1.innerHTML = "Education";
+          let op2 = document.createElement("option");
+          op2.innerHTML = "Food";
+          let op3 = document.createElement("option");
+          op3.innerHTML = "Play";
+          let op4 = document.createElement("option");
+          op4.innerHTML = "Others";
+
+          select.append(op1);
+          select.append(op2);
+          select.append(op3);
+          select.append(op4);
+        });
+      });
+
       $("#submit-income").on("click", () => {
         transType = $("#transType");
         transName = $("#transName");
         transNom = $("#transNom");
         type = "income";
+        balance = balance + 1 * transNom.val();
 
         if (transName == "" || transNom == "" || transType == "") {
           Swal.fire({
@@ -119,6 +151,59 @@ $(document).ready(() => {
           });
         }
       });
+
+      $("#submit-outcome").on("click", () => {
+        transType = $("#outcome-form #transType");
+        transName = $("#outcome-form #transName");
+        transNom = $("#outcome-form #transNom");
+        type = "outcome";
+        if (transName == "" || transNom == "" || transType == "") {
+          Swal.fire({
+            title: "Error!",
+            text: `Silakan lengkapi form!`,
+            icon: "error",
+            confirmButtonText: "Okay",
+          });
+        } else {
+          if (balance > 0) {
+            if (transNom.val() > balance) {
+              Swal.fire({
+                title: "Error!",
+                text: `Saldo tidak mencukupi!`,
+                icon: "error",
+                confirmButtonText: "Okay",
+              });
+            } else {
+              transactions.push({
+                id: id,
+                transType: transType.val(),
+                name: transName.val(),
+                nominal: transNom.val(),
+                type: type,
+              });
+              id++;
+              balance = balance - 1 * transNom.val();
+              transType.val("");
+              transName.val("");
+              transNom.val("");
+
+              Swal.fire({
+                title: "Success!",
+                text: `Transaksi berhasil ditambahkan!`,
+                icon: "success",
+                confirmButtonText: "Okay",
+              });
+            }
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: `Balance tidak mencukupi!`,
+              icon: "warning",
+              confirmButtonText: "Okay",
+            });
+          }
+        }
+      });
     } else {
       Swal.fire({
         title: "Error!",
@@ -130,7 +215,7 @@ $(document).ready(() => {
   });
 });
 
-const displayTransactions = (transactions) => {
+const displayTransactions = (transactions, balance) => {
   let h3 = document.createElement("h3");
   h3.classList.add("fw-bold", "mt-5");
   h3.innerHTML = "Transaction";
@@ -140,7 +225,6 @@ const displayTransactions = (transactions) => {
   if (transactions.length > 0) {
     $("#no-transaction").css("display", "none");
     let balanceEl = $("#balance");
-    let balance = 0;
     let transDiv = document.createElement("div");
     transDiv.classList.add(
       "d-flex",
@@ -149,11 +233,10 @@ const displayTransactions = (transactions) => {
       "flex-column",
       "p-5"
     );
+    $("#test").css("overflow", "scroll");
     transDiv.innerHTML = "";
 
     for (let i = 0; i < transactions.length; i++) {
-      balance = balance + 1 * transactions[i].nominal;
-
       let div = document.createElement("div");
       let leftSection = document.createElement("div");
       let rightSection = document.createElement("div");
@@ -175,9 +258,12 @@ const displayTransactions = (transactions) => {
         "p-3",
         "rounded-3",
         "d-flex",
-        "flex-row",
-        "justify-content-between",
-        "align-items-center"
+        "flex-column",
+        "flex-md-row",
+        "justify-content-start",
+        "justify-content-md-between",
+        "align-items-md-center",
+        "align-items-start"
       );
 
       leftSection.classList.add("d-flex", "flex-column", "align-items-start");
