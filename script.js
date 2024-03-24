@@ -101,11 +101,11 @@ $(document).ready(() => {
           select.text("");
 
           let op1 = document.createElement("option");
-          op1.innerHTML = "Education";
+          op1.innerHTML = "Salary";
           let op2 = document.createElement("option");
-          op2.innerHTML = "Food";
+          op2.innerHTML = "Investment";
           let op3 = document.createElement("option");
-          op3.innerHTML = "Play";
+          op3.innerHTML = "Royalty";
           let op4 = document.createElement("option");
           op4.innerHTML = "Others";
 
