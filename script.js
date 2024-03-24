@@ -123,7 +123,7 @@ $(document).ready(() => {
         type = "income";
         balance = balance + 1 * transNom.val();
 
-        if (transName == "" || transNom == "" || transType == "") {
+        if (!transName.val()|| !transNom.val()|| !transType.val()) {
           Swal.fire({
             title: "Error!",
             text: `Silakan lengkapi form!`,
@@ -157,7 +157,7 @@ $(document).ready(() => {
         transName = $("#outcome-form #transName");
         transNom = $("#outcome-form #transNom");
         type = "outcome";
-        if (transName == "" || transNom == "" || transType == "") {
+        if (!transName.val()  || !transNom.val()  || !transType.val() ) {
           Swal.fire({
             title: "Error!",
             text: `Silakan lengkapi form!`,
