@@ -12,6 +12,7 @@ $(document).ready(() => {
   let id = 1;
   let balance = 0;
   let transactions = [];
+  let transactionsType = [];
 
   $("#submitButton").on("click", () => {
     username = $("#name").val();
@@ -23,14 +24,18 @@ $(document).ready(() => {
 
       // Display main page
       $("#loginPage").css("display", "none");
-      $("#income").css("display", "none");
+      $("#main").css("display", "block");
       $("#outcome").css("display", "none");
       $("#about").css("display", "none");
-      $("#main").css("display", "block");
-      $("#main-link").addClass("active");
+      $("#income").css("display", "none");
+      $("#transactionType").css("display", "none");
+      $("#aboutUs").css("display", "none");
       $("#income-link").removeClass("active");
+      $("#main-link").addClass("active");
       $("#outcome-link").removeClass("active");
       $("#about-link").removeClass("active");
+      $("#transType-link").removeClass("active");
+      $("#aboutUs-link").removeClass("active");
       displayTransactions(transactions);
 
       Swal.fire({
@@ -41,14 +46,20 @@ $(document).ready(() => {
       });
 
       $("#main-link").on("click", () => {
-        $("#income").css("display", "none");
+        $("#main").css("display", "block");
         $("#outcome").css("display", "none");
         $("#about").css("display", "none");
-        $("#main").css("display", "block");
-        $("#main-link").addClass("active");
+        $("#income").css("display", "none");
+        $("#transactionType").css("display", "none");
+        $("#aboutUs").css("display", "none");
         $("#income-link").removeClass("active");
+        $("#main-link").addClass("active");
         $("#outcome-link").removeClass("active");
         $("#about-link").removeClass("active");
+        $("#transType-link").removeClass("active");
+        $("#aboutUs-link").removeClass("active");
+        $("body").css("background", "url('./images/HomePage.jpg')no-repeat");
+        $("body").css("min-height", "100vh");
         displayTransactions(transactions, balance);
       });
 
@@ -60,10 +71,17 @@ $(document).ready(() => {
         $("#outcome").css("display", "none");
         $("#about").css("display", "none");
         $("#income").css("display", "block");
+        $("#transactionType").css("display", "none");
+        $("#aboutUs").css("display", "none");
         $("#income-link").addClass("active");
         $("#main-link").removeClass("active");
         $("#outcome-link").removeClass("active");
         $("#about-link").removeClass("active");
+        $("#transType-link").removeClass("active");
+        $("#aboutUs-link").removeClass("active");
+
+        $("body").css("background", "url('./images/HomePage.jpg')no-repeat");
+        $("body").css("min-height", "100vh");
 
         $("#transType").on("focus", () => {
           let select = $("#transType");
@@ -77,11 +95,23 @@ $(document).ready(() => {
           op3.innerHTML = "Play";
           let op4 = document.createElement("option");
           op4.innerHTML = "Others";
+          let op5 = document.createElement("option");
+          op5.innerHTML = "--OTHER OPTION--";
+          op5.setAttribute("disabled", "true");
 
           select.append(op1);
           select.append(op2);
           select.append(op3);
           select.append(op4);
+          select.append(op5);
+
+          for (let i = 0; i < transactionsType.length; i++) {
+            if (transactionsType[i].transType == "income") {
+              let customOpt = document.createElement("option");
+              customOpt.innerHTML = transactionsType[i].category;
+              select.append(customOpt);
+            }
+          }
         });
       });
 
@@ -91,29 +121,124 @@ $(document).ready(() => {
         $("#outcome").css("display", "block");
         $("#about").css("display", "none");
         $("#income").css("display", "none");
+        $("#transactionType").css("display", "none");
+        $("#aboutUs").css("display", "none");
         $("#income-link").removeClass("active");
         $("#main-link").removeClass("active");
         $("#outcome-link").addClass("active");
         $("#about-link").removeClass("active");
+        $("#transType-link").removeClass("active");
+        $("#aboutUs-link").removeClass("active");
+
+        $("body").css("background", "url('./images/HomePage.jpg')no-repeat");
+        $("body").css("min-height", "100vh");
 
         $("#outcome-form #transType").on("focus", () => {
           let select = $("#outcome-form #transType");
           select.text("");
 
           let op1 = document.createElement("option");
-          op1.innerHTML = "Education";
+          op1.innerHTML = "Salary";
           let op2 = document.createElement("option");
-          op2.innerHTML = "Food";
+          op2.innerHTML = "Investment";
           let op3 = document.createElement("option");
-          op3.innerHTML = "Play";
+          op3.innerHTML = "Royalty";
           let op4 = document.createElement("option");
           op4.innerHTML = "Others";
+          let op5 = document.createElement("option");
+          op5.innerHTML = "--OTHER OPTION--";
+          op5.setAttribute("disabled", "true");
 
           select.append(op1);
           select.append(op2);
           select.append(op3);
           select.append(op4);
+          select.append(op5);
+
+          for (let i = 0; i < transactionsType.length; i++) {
+            if (transactionsType[i].transType == "outcome") {
+              let customOpt = document.createElement("option");
+              customOpt.innerHTML = transactionsType[i].category;
+              select.append(customOpt);
+            }
+          }
         });
+      });
+
+      // Display transaction type page
+      $("#transType-link").click(function () {
+        $("#main").css("display", "none");
+        $("#outcome").css("display", "none");
+        $("#about").css("display", "none");
+        $("#income").css("display", "none");
+        $("#aboutUs").css("display", "none");
+        $("#transactionType").css("display", "block");
+        $("#income-link").removeClass("active");
+        $("#main-link").removeClass("active");
+        $("#outcome-link").removeClass("active");
+        $("#about-link").removeClass("active");
+        $("#aboutUs-link").removeClass("active");
+        $("#transType-link").addClass("active");
+
+        $("body").css("background", "url('./images/HomePage.jpg')no-repeat");
+        $("body").css("min-height", "100vh");
+      });
+
+      // Display about us page
+      $("#aboutUs-link").click(function () {
+        $("#main").css("display", "none");
+        $("#outcome").css("display", "none");
+        $("#about").css("display", "none");
+        $("#income").css("display", "none");
+        $("#aboutUs").css("display", "block");
+        $("#transactionType").css("display", "none");
+        $("#income-link").removeClass("active");
+        $("#main-link").removeClass("active");
+        $("#outcome-link").removeClass("active");
+        $("#about-link").addClass("active");
+        $("#aboutUs-link").removeClass("active");
+        $("#transType-link").removeClass("active");
+
+        $("body").css(
+          "background",
+          "url('./images/bgBaru.jpg')no-repeat  fixed"
+        );
+        $("body").css("min-height", "100vh");
+        $("body").css("background-size", "cover");
+      });
+
+      $("#submit-transType").click(function () {
+        let category = $("#category").val();
+        let transType = $("#transTypeCategory").val();
+        let same = false;
+
+        for (let i = 0; i < transactionsType.length; i++) {
+          if (
+            transactionsType[i].transType == transType &&
+            transactionsType[i].category == category
+          ) {
+            Swal.fire({
+              title: "Error!",
+              text: "Transaction type already exist",
+              icon: "error",
+              confirmButtonText: "Okay",
+            });
+
+            same = true;
+          }
+        }
+
+        if (!same) {
+          transactionsType.push({ category, transType });
+          $("#category").val("");
+          Swal.fire({
+            title: "Success!",
+            text: "Transaction type has been submitted!",
+            icon: "success",
+            confirmButtonText: "Okay",
+          });
+          console.log(transactionsType);
+        }
       });
 
       $("#submit-income").on("click", () => {
@@ -123,7 +248,7 @@ $(document).ready(() => {
         type = "income";
         balance = balance + 1 * transNom.val();
 
-        if (transName == "" || transNom == "" || transType == "") {
+        if (!transName.val() || !transNom.val() || !transType.val()) {
           Swal.fire({
             title: "Error!",
             text: `Silakan lengkapi form!`,
@@ -157,7 +282,7 @@ $(document).ready(() => {
         transName = $("#outcome-form #transName");
         transNom = $("#outcome-form #transNom");
         type = "outcome";
-        if (transName == "" || transNom == "" || transType == "") {
+        if (!transName.val() || !transNom.val() || !transType.val()) {
           Swal.fire({
             title: "Error!",
             text: `Silakan lengkapi form!`,
