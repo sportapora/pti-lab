@@ -550,12 +550,12 @@ const displayBill = (billinfo) => {
         "parent",
       );
 
-      leftSection.classList.add("d-flex", "flex-column","align-items-center","align-items-md-start");
+      leftSection.classList.add("d-flex", "flex-column","align-items-center","align-items-lg-start");
       leftSection.append(h5);
       leftSection.append(divh6);
       div.append(leftSection);
       
-      rightSection.classList.add("d-flex", "flex-column","align-items-center","align-items-md-end");
+      rightSection.classList.add("d-flex", "flex-column","align-items-center","align-items-lg-end");
       toprightSection.classList.add("fw-bold");
       toprightSection.append(IDR.format(hNominal));
       
