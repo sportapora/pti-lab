@@ -10,8 +10,13 @@ $(document).ready(() => {
   let transNom = "";
   let type = "";
   let id = 1;
+  let idbill = 1;
   let balance = 0;
   let transactions = [];
+  let billinfo = [];
+  let nombill = "";
+  let namebill = "";
+  let deadbill = "";
   let transactionsType = [];
 
   $("#submitButton").on("click", () => {
@@ -52,11 +57,13 @@ $(document).ready(() => {
         $("#income").css("display", "none");
         $("#transactionType").css("display", "none");
         $("#aboutUs").css("display", "none");
+        $("#bill").css("display", "none");
         $("#income-link").removeClass("active");
         $("#main-link").addClass("active");
         $("#outcome-link").removeClass("active");
         $("#about-link").removeClass("active");
         $("#transType-link").removeClass("active");
+        $("#bill-link").removeClass("active");
         $("#aboutUs-link").removeClass("active");
         $("body").css("background", "url('./images/HomePage.jpg')no-repeat");
         $("body").css("min-height", "100vh");
@@ -72,12 +79,14 @@ $(document).ready(() => {
         $("#about").css("display", "none");
         $("#income").css("display", "block");
         $("#transactionType").css("display", "none");
+        $("#bill").css("display", "none");
         $("#aboutUs").css("display", "none");
         $("#income-link").addClass("active");
         $("#main-link").removeClass("active");
         $("#outcome-link").removeClass("active");
         $("#about-link").removeClass("active");
         $("#transType-link").removeClass("active");
+        $("#bill-link").removeClass("active");
         $("#aboutUs-link").removeClass("active");
 
         $("body").css("background", "url('./images/HomePage.jpg')no-repeat");
@@ -122,12 +131,14 @@ $(document).ready(() => {
         $("#about").css("display", "none");
         $("#income").css("display", "none");
         $("#transactionType").css("display", "none");
+        $("#bill").css("display", "none");
         $("#aboutUs").css("display", "none");
         $("#income-link").removeClass("active");
         $("#main-link").removeClass("active");
         $("#outcome-link").addClass("active");
         $("#about-link").removeClass("active");
         $("#transType-link").removeClass("active");
+        $("#bill-link").removeClass("active");
         $("#aboutUs-link").removeClass("active");
 
         $("body").css("background", "url('./images/HomePage.jpg')no-repeat");
@@ -170,6 +181,7 @@ $(document).ready(() => {
         $("#main").css("display", "none");
         $("#outcome").css("display", "none");
         $("#about").css("display", "none");
+        $("#bill").css("display", "none");
         $("#income").css("display", "none");
         $("#aboutUs").css("display", "none");
         $("#transactionType").css("display", "block");
@@ -178,6 +190,7 @@ $(document).ready(() => {
         $("#outcome-link").removeClass("active");
         $("#about-link").removeClass("active");
         $("#aboutUs-link").removeClass("active");
+        $("#bill-link").removeClass("active");
         $("#transType-link").addClass("active");
 
         $("body").css("background", "url('./images/HomePage.jpg')no-repeat");
@@ -190,6 +203,7 @@ $(document).ready(() => {
         $("#outcome").css("display", "none");
         $("#about").css("display", "none");
         $("#income").css("display", "none");
+        $("#bill").css("display", "none");
         $("#aboutUs").css("display", "block");
         $("#transactionType").css("display", "none");
         $("#income-link").removeClass("active");
@@ -197,6 +211,7 @@ $(document).ready(() => {
         $("#outcome-link").removeClass("active");
         $("#about-link").addClass("active");
         $("#aboutUs-link").removeClass("active");
+        $("#bill-link").removeClass("active");
         $("#transType-link").removeClass("active");
 
         $("body").css(
@@ -205,6 +220,60 @@ $(document).ready(() => {
         );
         $("body").css("min-height", "100vh");
         $("body").css("background-size", "cover");
+      });
+
+      // Display bill reminder
+      $("#bill-link").on("click", () => {
+        $("#income").css("display", "none");
+        $("#outcome").css("display", "none");
+        $("#about").css("display", "none");
+        $("#main").css("display", "none");
+        $("#transactionType").css("display", "none");
+        $("#bill").css("display", "block");
+        $("#main-link").removeClass("active");
+        $("#income-link").removeClass("active");
+        $("#outcome-link").removeClass("active");
+        $("#about-link").removeClass("active");
+        $("#transType-link").removeClass("active");
+        $("#bill-link").addClass("active");
+        displayBill(billinfo);
+      });
+
+      $("#submit-bill").on("click", () => {
+        deadbill = $("#billDeadline");
+        nombill = $("#billNom");
+        namebill = $("#billName");
+        type = "bill";
+
+        if (!deadbill.val() || !namebill.val() || !nombill.val()) {
+          Swal.fire({
+            title: "Error!",
+            text: "Please fill the form!",
+            icon: "error",
+            confirmButtonText: "Okay",
+          });
+        } else {
+          billinfo.push({
+            idbill: idbill,
+            deadbill: deadbill.val(),
+            namebill: namebill.val(),
+            nombill: nombill.val(),
+            type: type,
+          });
+          idbill++;
+          deadbill.val("");
+          nombill.val("");
+          namebill.val("");
+
+          Swal.fire({
+            title: "Success!",
+            text: "The reminder has been added!",
+            icon: "success",
+            confirmButtonText: "Okay",
+          });
+
+          displayBill(billinfo);
+        }
       });
 
       $("#submit-transType").click(function () {
@@ -251,7 +320,7 @@ $(document).ready(() => {
         if (!transName.val() || !transNom.val() || !transType.val()) {
           Swal.fire({
             title: "Error!",
-            text: `Silakan lengkapi form!`,
+            text: "Please fill the form!",
             icon: "error",
             confirmButtonText: "Okay",
           });
@@ -270,7 +339,7 @@ $(document).ready(() => {
 
           Swal.fire({
             title: "Success!",
-            text: `Transaksi berhasil ditambahkan!`,
+            text: "The transaction has been added!",
             icon: "success",
             confirmButtonText: "Okay",
           });
@@ -285,7 +354,7 @@ $(document).ready(() => {
         if (!transName.val() || !transNom.val() || !transType.val()) {
           Swal.fire({
             title: "Error!",
-            text: `Silakan lengkapi form!`,
+            text: "Please fill the form!",
             icon: "error",
             confirmButtonText: "Okay",
           });
@@ -294,7 +363,7 @@ $(document).ready(() => {
             if (transNom.val() > balance) {
               Swal.fire({
                 title: "Error!",
-                text: `Saldo tidak mencukupi!`,
+                text: "the balance is not sufficient!",
                 icon: "error",
                 confirmButtonText: "Okay",
               });
@@ -314,7 +383,7 @@ $(document).ready(() => {
 
               Swal.fire({
                 title: "Success!",
-                text: `Transaksi berhasil ditambahkan!`,
+                text: "The transaction has been added!",
                 icon: "success",
                 confirmButtonText: "Okay",
               });
@@ -322,7 +391,7 @@ $(document).ready(() => {
           } else {
             Swal.fire({
               title: "Error!",
-              text: `Balance tidak mencukupi!`,
+              text: "the balance is not sufficient!",
               icon: "warning",
               confirmButtonText: "Okay",
             });
@@ -406,11 +475,84 @@ const displayTransactions = (transactions, balance) => {
     let h6 = document.createElement("h6");
 
     h6.setAttribute("id", "no-transaction");
-    h6.innerHTML = "Belum ada transaksi sejauh ini";
+    h6.innerHTML = "There's been no transaction recently";
     h6.classList.add("mt-3");
 
     $("#test").text("");
     $("#test").append(h3);
     $("#test").append(h6);
+  }
+};
+
+const displayBill = (billinfo) => {
+  let h3 = document.createElement("h3");
+  h3.classList.add("fw-bold", "mt-5");
+  h3.innerHTML = "Bill information";
+  $("#billInformation").html("");
+  $("#billInformation").append(h3);
+
+  if (billinfo.length > 0) {
+    $("#no-transaction").css("display", "none");
+    let balanceEl = $("#balance");
+    let transDiv = document.createElement("div");
+    transDiv.classList.add(
+      "d-flex",
+      "justify-content-between",
+      "gap-3",
+      "flex-column",
+      "p-5"
+    );
+    $("#billInformation").css("overflow", "scroll");
+    transDiv.innerHTML = "";
+
+    for (let i = 0; i < billinfo.length; i++) {
+      let div = document.createElement("div");
+      let leftSection = document.createElement("div");
+      let rightSection = document.createElement("div");
+      let h5 = document.createElement("h5");
+      let h6 = document.createElement("h6");
+      let hNominal = document.createElement("h4");
+      console.log(billinfo[i]);
+      h5.innerHTML = billinfo[i].namebill;
+      h5.classList.add("fw-bold");
+      h6.innerHTML = "Deadline: " + billinfo[i].deadbill;
+      hNominal = billinfo[i].nombill;
+
+      div.classList.add(
+        "w-100",
+        "w-md-50",
+        "bg-danger-subtle",
+        "p-3",
+        "rounded-3",
+        "d-flex",
+        "flex-column",
+        "flex-md-row",
+        "justify-content-start",
+        "justify-content-md-between",
+        "align-items-md-center",
+        "align-items-start"
+      );
+
+      leftSection.classList.add("d-flex", "flex-column", "align-items-start");
+      rightSection.classList.add("fw-bold");
+      leftSection.append(h5);
+      leftSection.append(h6);
+      rightSection.append(IDR.format(hNominal));
+      div.append(leftSection);
+      div.append(rightSection);
+      transDiv.append(div);
+    }
+    $("#billInformation").append(transDiv);
+    balanceEl.text(IDR.format(balance));
+  } else {
+    let h6 = document.createElement("h6");
+
+    h6.setAttribute("id", "no-transaction");
+    h6.innerHTML = "There's been no bill recently";
+    h6.classList.add("mt-3");
+
+    $("#billInformation").text("");
+    $("#billInformation").append(h3);
+    $("#billInformation").append(h6);
   }
 };

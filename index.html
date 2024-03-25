@@ -84,7 +84,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" id="bill-link" href="#Bill Reminder"
-                >Outcome</a
+                >Bill Reminder</a
               >
             </li>
             <li class="nav-item">
@@ -148,7 +148,7 @@
               type="number"
               class="form-control border border-4 border-dark"
               id="transNom"
-              placeholder="100.000/100000?"
+              placeholder=""
               name="transNom"
             />
           </div>
@@ -206,7 +206,7 @@
               type="number"
               class="form-control border border-4 border-dark"
               id="transNom"
-              placeholder="100.000/100000?"
+              placeholder=""
               name="transNom"
             />
           </div>
@@ -235,7 +235,65 @@
 
     <!-- Bill page -->
     <div id="bill" style="display: none">
-      <div class="container"></div>
+      <div
+        class="justify-content-between d-flex gap-4 flex-column flex-md-row p-5"
+      >
+        <div
+          id="billInformation"
+          class="w-100 w-lg-50 text-center bg-body-secondary rounded-3"
+          style="height: 500px"
+        ></div>
+        <div id="billForm" class="w-100 w-lg-50">
+          <h3 id="judulBill" class="text-center mt-4">
+            <span class="username"></span>'s Bill Reminder
+          </h3>
+          <form name="bill" id="bill-form" onsubmit="event.preventDefault()">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                ><strong>Bill name</strong></label
+              >
+              <input
+                type="text"
+                class="form-control border border-4 border-dark"
+                id="billName"
+                name="billName"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                ><strong>Bill nominal</strong></label
+              >
+              <input
+                type="number"
+                class="form-control border border-4 border-dark"
+                id="billNom"
+                placeholder=""
+                name="billNom"
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="billdeadline" class="form-label"
+                ><strong>Bill deadline</strong></label
+              >
+              <input
+                type="date"
+                id="billDeadline"
+                class="border border-4 border-dark w-full form-control"
+                name="billDeadline"
+              />
+            </div>
+            <div class="col-12 rounded-mg mt-5">
+              <button
+                type="submit"
+                class="btn btn-danger rounded-pill px-5"
+                id="submit-bill"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 
     <!-- Income/Outcome Categories -->
