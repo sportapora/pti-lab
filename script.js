@@ -12,6 +12,7 @@ $(document).ready(() => {
   let id = 1;
   let balance = 0;
   let transactions = [];
+  let transactionsType = [];
 
   $("#submitButton").on("click", () => {
     username = $("#name").val();
@@ -23,14 +24,16 @@ $(document).ready(() => {
 
       // Display main page
       $("#loginPage").css("display", "none");
-      $("#income").css("display", "none");
+      $("#main").css("display", "block");
       $("#outcome").css("display", "none");
       $("#about").css("display", "none");
-      $("#main").css("display", "block");
-      $("#main-link").addClass("active");
+      $("#income").css("display", "none");
+      $("#transactionType").css("display", "none");
       $("#income-link").removeClass("active");
+      $("#main-link").addClass("active");
       $("#outcome-link").removeClass("active");
       $("#about-link").removeClass("active");
+      $("#transType-link").removeClass("active");
       displayTransactions(transactions);
 
       Swal.fire({
@@ -41,14 +44,16 @@ $(document).ready(() => {
       });
 
       $("#main-link").on("click", () => {
-        $("#income").css("display", "none");
+        $("#main").css("display", "block");
         $("#outcome").css("display", "none");
         $("#about").css("display", "none");
-        $("#main").css("display", "block");
-        $("#main-link").addClass("active");
+        $("#income").css("display", "none");
+        $("#transactionType").css("display", "none");
         $("#income-link").removeClass("active");
+        $("#main-link").addClass("active");
         $("#outcome-link").removeClass("active");
         $("#about-link").removeClass("active");
+        $("#transType-link").removeClass("active");
         displayTransactions(transactions, balance);
       });
 
@@ -60,10 +65,12 @@ $(document).ready(() => {
         $("#outcome").css("display", "none");
         $("#about").css("display", "none");
         $("#income").css("display", "block");
+        $("#transactionType").css("display", "none");
         $("#income-link").addClass("active");
         $("#main-link").removeClass("active");
         $("#outcome-link").removeClass("active");
         $("#about-link").removeClass("active");
+        $("#transType-link").removeClass("active");
 
         $("#transType").on("focus", () => {
           let select = $("#transType");
@@ -77,11 +84,23 @@ $(document).ready(() => {
           op3.innerHTML = "Play";
           let op4 = document.createElement("option");
           op4.innerHTML = "Others";
+          let op5 = document.createElement("option");
+          op5.innerHTML = "--OTHER OPTION--";
+          op5.setAttribute("disabled", "true");
 
           select.append(op1);
           select.append(op2);
           select.append(op3);
           select.append(op4);
+          select.append(op5);
+
+          for (let i = 0; i < transactionsType.length; i++) {
+            if (transactionsType[i].transType == "income") {
+              let customOpt = document.createElement("option");
+              customOpt.innerHTML = transactionsType[i].category;
+              select.append(customOpt);
+            }
+          }
         });
       });
 
@@ -91,10 +110,12 @@ $(document).ready(() => {
         $("#outcome").css("display", "block");
         $("#about").css("display", "none");
         $("#income").css("display", "none");
+        $("#transactionType").css("display", "none");
         $("#income-link").removeClass("active");
         $("#main-link").removeClass("active");
         $("#outcome-link").addClass("active");
         $("#about-link").removeClass("active");
+        $("#transType-link").removeClass("active");
 
         $("#outcome-form #transType").on("focus", () => {
           let select = $("#outcome-form #transType");
@@ -108,12 +129,72 @@ $(document).ready(() => {
           op3.innerHTML = "Play";
           let op4 = document.createElement("option");
           op4.innerHTML = "Others";
+          let op5 = document.createElement("option");
+          op5.innerHTML = "--OTHER OPTION--";
+          op5.setAttribute("disabled", "true");
 
           select.append(op1);
           select.append(op2);
           select.append(op3);
           select.append(op4);
+          select.append(op5);
+
+          for (let i = 0; i < transactionsType.length; i++) {
+            if (transactionsType[i].transType == "outcome") {
+              let customOpt = document.createElement("option");
+              customOpt.innerHTML = transactionsType[i].category;
+              select.append(customOpt);
+            }
+          }
         });
+      });
+
+      // Display transaction type page
+      $("#transType-link").click(function () {
+        $("#main").css("display", "none");
+        $("#outcome").css("display", "none");
+        $("#about").css("display", "none");
+        $("#income").css("display", "none");
+        $("#transactionType").css("display", "block");
+        $("#income-link").removeClass("active");
+        $("#main-link").removeClass("active");
+        $("#outcome-link").removeClass("active");
+        $("#about-link").removeClass("active");
+        $("#transType-link").addClass("active");
+      });
+
+      $("#submit-transType").click(function () {
+        let category = $("#category").val();
+        let transType = $("#transTypeCategory").val();
+        let same = false;
+
+        for (let i = 0; i < transactionsType.length; i++) {
+          if (
+            transactionsType[i].transType == transType &&
+            transactionsType[i].category == category
+          ) {
+            Swal.fire({
+              title: "Error!",
+              text: "Transaction type already exist",
+              icon: "error",
+              confirmButtonText: "Okay",
+            });
+
+            same = true;
+          }
+        }
+
+        if (!same) {
+          transactionsType.push({ category, transType });
+          $("#category").val("");
+          Swal.fire({
+            title: "Success!",
+            text: "Transaction type has been submitted!",
+            icon: "success",
+            confirmButtonText: "Okay",
+          });
+          console.log(transactionsType);
+        }
       });
 
       $("#submit-income").on("click", () => {

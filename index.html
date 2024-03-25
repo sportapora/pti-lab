@@ -85,6 +85,11 @@
             <li class="nav-item">
               <a class="nav-link" id="about-link" href="#about">About Us</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" id="transType-link" href="#transType"
+                >Transaction Type</a
+              >
+            </li>
           </ul>
         </div>
       </div>
@@ -170,7 +175,12 @@
         <h3 id="judulIncome" class="text-center mt-4">
           <span class="username"></span>'s Outcome
         </h3>
-        <form action="" name="outcome" id="outcome-form" onsubmit="event.preventDefault()">
+        <form
+          action=""
+          name="outcome"
+          id="outcome-form"
+          onsubmit="event.preventDefault()"
+        >
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label"
               ><strong>Transcation name</strong></label
@@ -209,6 +219,58 @@
               type="submit"
               class="btn btn-danger rounded-pill px-5"
               id="submit-outcome"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Income/Outcome Categories -->
+    <div id="transactionType" style="display: none">
+      <div class="container">
+        <h3 class="text-center mt-4">Income/Outcome Categories</h3>
+
+        <p class="mt-4">
+          At there, you can add your custom income/outcome transaction type!
+        </p>
+
+        <form
+          action=""
+          name="categories"
+          id="categories-form"
+          onsubmit="event.preventDefault()"
+        >
+          <div class="mb-3">
+            <label for="category" class="form-label"
+              ><strong>Category</strong></label
+            >
+            <input
+              type="text"
+              class="form-control border border-4 border-dark"
+              id="category"
+              name="category"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"
+              ><strong>Set this category for</strong></label
+            >
+            <select
+              id="transTypeCategory"
+              class="form-select border border-4 border-dark w-full"
+              name="transTypeCategory"
+            >
+              <option value="income">Income</option>
+              <option value="outcome">Outcome</option>
+            </select>
+          </div>
+          <div class="col-12 rounded-mg mt-5">
+            <button
+              type="submit"
+              class="btn btn-danger rounded-pill px-5"
+              id="submit-transType"
             >
               Submit
             </button>
