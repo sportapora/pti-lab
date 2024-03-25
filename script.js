@@ -122,11 +122,11 @@ $(document).ready(() => {
           select.text("");
 
           let op1 = document.createElement("option");
-          op1.innerHTML = "Education";
+          op1.innerHTML = "Salary";
           let op2 = document.createElement("option");
-          op2.innerHTML = "Food";
+          op2.innerHTML = "Investment";
           let op3 = document.createElement("option");
-          op3.innerHTML = "Play";
+          op3.innerHTML = "Royalty";
           let op4 = document.createElement("option");
           op4.innerHTML = "Others";
           let op5 = document.createElement("option");
@@ -204,7 +204,7 @@ $(document).ready(() => {
         type = "income";
         balance = balance + 1 * transNom.val();
 
-        if (transName == "" || transNom == "" || transType == "") {
+        if (!transName.val()|| !transNom.val()|| !transType.val()) {
           Swal.fire({
             title: "Error!",
             text: `Silakan lengkapi form!`,
@@ -238,7 +238,7 @@ $(document).ready(() => {
         transName = $("#outcome-form #transName");
         transNom = $("#outcome-form #transNom");
         type = "outcome";
-        if (transName == "" || transNom == "" || transType == "") {
+        if (!transName.val()  || !transNom.val()  || !transType.val() ) {
           Swal.fire({
             title: "Error!",
             text: `Silakan lengkapi form!`,
