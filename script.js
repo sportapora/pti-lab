@@ -29,11 +29,13 @@ $(document).ready(() => {
       $("#about").css("display", "none");
       $("#income").css("display", "none");
       $("#transactionType").css("display", "none");
+      $("#aboutUs").css("display", "none");
       $("#income-link").removeClass("active");
       $("#main-link").addClass("active");
       $("#outcome-link").removeClass("active");
       $("#about-link").removeClass("active");
       $("#transType-link").removeClass("active");
+      $("#aboutUs-link").removeClass("active");
       displayTransactions(transactions);
 
       Swal.fire({
@@ -49,11 +51,15 @@ $(document).ready(() => {
         $("#about").css("display", "none");
         $("#income").css("display", "none");
         $("#transactionType").css("display", "none");
+        $("#aboutUs").css("display", "none");
         $("#income-link").removeClass("active");
         $("#main-link").addClass("active");
         $("#outcome-link").removeClass("active");
         $("#about-link").removeClass("active");
         $("#transType-link").removeClass("active");
+        $("#aboutUs-link").removeClass("active");
+        $("body").css("background", "url('./images/HomePage.jpg')no-repeat");
+        $("body").css("min-height", "100vh");
         displayTransactions(transactions, balance);
       });
 
@@ -66,11 +72,16 @@ $(document).ready(() => {
         $("#about").css("display", "none");
         $("#income").css("display", "block");
         $("#transactionType").css("display", "none");
+        $("#aboutUs").css("display", "none");
         $("#income-link").addClass("active");
         $("#main-link").removeClass("active");
         $("#outcome-link").removeClass("active");
         $("#about-link").removeClass("active");
         $("#transType-link").removeClass("active");
+        $("#aboutUs-link").removeClass("active");
+
+        $("body").css("background", "url('./images/HomePage.jpg')no-repeat");
+        $("body").css("min-height", "100vh");
 
         $("#transType").on("focus", () => {
           let select = $("#transType");
@@ -111,11 +122,16 @@ $(document).ready(() => {
         $("#about").css("display", "none");
         $("#income").css("display", "none");
         $("#transactionType").css("display", "none");
+        $("#aboutUs").css("display", "none");
         $("#income-link").removeClass("active");
         $("#main-link").removeClass("active");
         $("#outcome-link").addClass("active");
         $("#about-link").removeClass("active");
         $("#transType-link").removeClass("active");
+        $("#aboutUs-link").removeClass("active");
+
+        $("body").css("background", "url('./images/HomePage.jpg')no-repeat");
+        $("body").css("min-height", "100vh");
 
         $("#outcome-form #transType").on("focus", () => {
           let select = $("#outcome-form #transType");
@@ -155,12 +171,40 @@ $(document).ready(() => {
         $("#outcome").css("display", "none");
         $("#about").css("display", "none");
         $("#income").css("display", "none");
+        $("#aboutUs").css("display", "none");
         $("#transactionType").css("display", "block");
         $("#income-link").removeClass("active");
         $("#main-link").removeClass("active");
         $("#outcome-link").removeClass("active");
         $("#about-link").removeClass("active");
+        $("#aboutUs-link").removeClass("active");
         $("#transType-link").addClass("active");
+
+        $("body").css("background", "url('./images/HomePage.jpg')no-repeat");
+        $("body").css("min-height", "100vh");
+      });
+
+      // Display about us page
+      $("#aboutUs-link").click(function () {
+        $("#main").css("display", "none");
+        $("#outcome").css("display", "none");
+        $("#about").css("display", "none");
+        $("#income").css("display", "none");
+        $("#aboutUs").css("display", "block");
+        $("#transactionType").css("display", "none");
+        $("#income-link").removeClass("active");
+        $("#main-link").removeClass("active");
+        $("#outcome-link").removeClass("active");
+        $("#about-link").addClass("active");
+        $("#aboutUs-link").removeClass("active");
+        $("#transType-link").removeClass("active");
+
+        $("body").css(
+          "background",
+          "url('./images/bgBaru.jpg')no-repeat  fixed"
+        );
+        $("body").css("min-height", "100vh");
+        $("body").css("background-size", "cover");
       });
 
       $("#submit-transType").click(function () {
@@ -204,7 +248,7 @@ $(document).ready(() => {
         type = "income";
         balance = balance + 1 * transNom.val();
 
-        if (!transName.val()|| !transNom.val()|| !transType.val()) {
+        if (!transName.val() || !transNom.val() || !transType.val()) {
           Swal.fire({
             title: "Error!",
             text: `Silakan lengkapi form!`,
@@ -238,7 +282,7 @@ $(document).ready(() => {
         transName = $("#outcome-form #transName");
         transNom = $("#outcome-form #transNom");
         type = "outcome";
-        if (!transName.val()  || !transNom.val()  || !transType.val() ) {
+        if (!transName.val() || !transNom.val() || !transType.val()) {
           Swal.fire({
             title: "Error!",
             text: `Silakan lengkapi form!`,
