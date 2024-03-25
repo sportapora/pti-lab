@@ -398,6 +398,14 @@ $(document).ready(() => {
           }
         }
       });
+
+      $(document).on("click", "#paidbtn", function () {
+        const index = $(this).closest(".parent").index();
+        $(this).closest(".parent").remove();
+        billinfo.splice(index, 1);
+        displayBill(billinfo);
+      });
+
     } else {
       Swal.fire({
         title: "Error!",
@@ -493,7 +501,6 @@ const displayBill = (billinfo) => {
 
   if (billinfo.length > 0) {
     $("#no-transaction").css("display", "none");
-    let balanceEl = $("#balance");
     let transDiv = document.createElement("div");
     transDiv.classList.add(
       "d-flex",
@@ -509,41 +516,61 @@ const displayBill = (billinfo) => {
       let div = document.createElement("div");
       let leftSection = document.createElement("div");
       let rightSection = document.createElement("div");
+      let toprightSection = document.createElement("div");
+      let botrightSection = document.createElement("div");
+      let button = document.createElement("button");
       let h5 = document.createElement("h5");
-      let h6 = document.createElement("h6");
+      let divh6 = document.createElement("div");
+      let h6text = document.createElement("h6");
+      let h6date = document.createElement("h6");
       let hNominal = document.createElement("h4");
-      console.log(billinfo[i]);
+
       h5.innerHTML = billinfo[i].namebill;
       h5.classList.add("fw-bold");
-      h6.innerHTML = "Deadline: " + billinfo[i].deadbill;
+      h6text.innerHTML = "Deadline: ";
+      h6date.innerHTML = billinfo[i].deadbill;
       hNominal = billinfo[i].nombill;
-
+      divh6.classList.add("d-flex","flex-column","flex-lg-row");
+      divh6.append(h6text);
+      divh6.append(h6date);
+      leftSection.append(divh6);
       div.classList.add(
         "w-100",
-        "w-md-50",
+        "w-lg-50",
         "bg-danger-subtle",
         "p-3",
         "rounded-3",
         "d-flex",
         "flex-column",
-        "flex-md-row",
+        "flex-lg-row",
         "justify-content-start",
-        "justify-content-md-between",
-        "align-items-md-center",
-        "align-items-start"
+        "justify-content-lg-between",
+        "align-items-center",
+        "align-items-xs-start",
+        "parent",
       );
 
-      leftSection.classList.add("d-flex", "flex-column", "align-items-start");
-      rightSection.classList.add("fw-bold");
+      leftSection.classList.add("d-flex", "flex-column","align-items-center","align-items-md-start");
       leftSection.append(h5);
-      leftSection.append(h6);
-      rightSection.append(IDR.format(hNominal));
+      leftSection.append(divh6);
       div.append(leftSection);
+      
+      rightSection.classList.add("d-flex", "flex-column","align-items-center","align-items-md-end");
+      toprightSection.classList.add("fw-bold");
+      toprightSection.append(IDR.format(hNominal));
+      
+      button.classList.add("btn", "btn-outline-success", "btn-sm", "mt-2");
+      button.setAttribute("id", "paidbtn");
+      button.innerHTML = "Paid";
+
+      botrightSection.append(button);
+      rightSection.append(toprightSection);
+      rightSection.append(botrightSection);
       div.append(rightSection);
+
       transDiv.append(div);
     }
     $("#billInformation").append(transDiv);
-    balanceEl.text(IDR.format(balance));
   } else {
     let h6 = document.createElement("h6");
 
@@ -556,3 +583,5 @@ const displayBill = (billinfo) => {
     $("#billInformation").append(h6);
   }
 };
+
+
